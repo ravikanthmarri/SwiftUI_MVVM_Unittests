@@ -8,7 +8,7 @@
 import Foundation
 
 enum Endpoint {
-    case people
+    case people(page: Int)
     case detail(id: Int)
     case create(submissionData: Data?)
 }
@@ -44,14 +44,14 @@ extension Endpoint {
         }
     }
     
-//    var queryItems: [String: String]? {
-//        switch self {
-//        case .people(let page):
-//            return ["page":"\(page)"]
-//        default:
-//            return nil
-//        }
-//    }
+    var queryItems: [String: String]? {
+        switch self {
+        case .people(let page):
+            return ["page":"\(page)"]
+        default:
+            return nil
+        }
+    }
 }
 
 extension Endpoint {
@@ -64,9 +64,9 @@ extension Endpoint {
         
         var requestQueryItems = [URLQueryItem]()
         
-//        queryItems?.forEach { item in
-//            requestQueryItems.append(URLQueryItem(name: item.key, value: item.value))
-//        }
+        queryItems?.forEach { item in
+            requestQueryItems.append(URLQueryItem(name: item.key, value: item.value))
+        }
         
         #if DEBUG
         requestQueryItems.append(URLQueryItem(name: "delay", value: "2"))

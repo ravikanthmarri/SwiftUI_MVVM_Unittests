@@ -15,7 +15,6 @@ struct CreateView: View {
     let successfulAction: () -> Void
     
     var body: some View {
-        NavigationStack {
             Form {
                 Section {
                     firstname
@@ -53,7 +52,7 @@ struct CreateView: View {
                     ProgressView()
                 }
             }
-        }
+            .embedInNavigation()
     }
 }
 
@@ -96,7 +95,9 @@ private extension CreateView {
     var submit: some View {
         Button("Submit") {
             focusedField = nil
-            vm.create()
+            Task {
+                await vm.create()
+            }
         }
     }
 }

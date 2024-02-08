@@ -16,7 +16,7 @@ struct SettingsView: View {
                 haptics
             }
             .navigationTitle("Settings")
-            //.embedInNavigation()
+            .embedInNavigation()
         
     }
 }

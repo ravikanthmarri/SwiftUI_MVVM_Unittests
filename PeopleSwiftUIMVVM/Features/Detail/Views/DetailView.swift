@@ -38,8 +38,8 @@ struct DetailView: View {
             }
         }
         .navigationTitle("Details")
-        .onAppear {
-            vm.fetchDetails(for: userId)
+        .task {
+            await vm.fetchDetails(for: userId)
         }
         .alert(isPresented: $vm.hasError, error: vm.error) {
             
@@ -48,9 +48,8 @@ struct DetailView: View {
 }
 
 #Preview {
-    NavigationStack {
-        DetailView(userId: PreviewData.previewUserId)
-    }
+    DetailView(userId: PreviewData.previewUserId)
+        .embedInNavigation()
 }
 
 struct PreviewData {
