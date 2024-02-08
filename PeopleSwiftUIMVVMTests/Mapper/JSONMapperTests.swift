@@ -92,7 +92,15 @@ class JSONMapperTests: XCTestCase {
     }
     
     func test_with_invalid_json_error_thrown() {
-        XCTFail()
+        XCTAssertThrowsError(try StaticJSONMapper.decode(file: "UsersStaticData", type: UserDetailResponse.self), "An error should be thrown because UserDetailResponse is used to decode UsersStaticData")
+        
+        do {
+            _ = try StaticJSONMapper.decode(file: "UsersStaticData", type: UserDetailResponse.self)
+        } catch {
+            if error is StaticJSONMapper.MappingError {
+                XCTFail("Got the wrong type of error, expecting a system decoding error")
+            }
+        }
     }
     
 }
